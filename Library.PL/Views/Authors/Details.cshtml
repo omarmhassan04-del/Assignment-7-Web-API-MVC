@@ -1,0 +1,48 @@
+@model Library.DAL.Models.Author
+
+@{
+    ViewData["Title"] = "Author Details";
+}
+
+<h1>Author Details</h1>
+<hr />
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-header bg-info text-white">
+        <h4 class="mb-0">@Model.Name</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.BirthDate)</dt>
+            <dd class="col-sm-9">@Model.BirthDate.ToString("yyyy-MM-dd")</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Biography)</dt>
+            <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Biography) ? "No biography provided" : Model.Biography)</dd>
+        </dl>
+    </div>
+</div>
+
+<h3>Books by this Author</h3>
+<hr />
+
+@if (Model.Books != null && Model.Books.Any())
+{
+    <ul class="list-group mb-4">
+        @foreach (var book in Model.Books)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><strong>@book.Title</strong> (ISBN: @book.ISBN) - @book.Price.ToString("C")</span>
+                <span class="badge bg-secondary">Year: @book.PublicationYear</span>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p class="text-muted">No books currently registered for this author.</p>
+}
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

@@ -1,0 +1,46 @@
+@model Library.DAL.Models.Author
+
+@{
+    ViewData["Title"] = "Edit Author";
+}
+
+<h1>Edit Author</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CreatedAt" />
+            <input type="hidden" asp-for="CreatedBy" />
+            
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="BirthDate" class="form-label"></label>
+                <input asp-for="BirthDate" class="form-control" type="date" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Biography" class="form-label"></label>
+                <textarea asp-for="Biography" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Biography" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <input type="submit" value="Update" class="btn btn-warning" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
